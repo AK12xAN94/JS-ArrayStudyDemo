@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AJAX GET 请求</title>
+    <style>
+        #result,
+        #postResult,
+        #json,
+        #delay {
+            width: 200px;
+            height: 100px;
+            margin-top: 20px;
+            border: solid 1px #90b;
+        }
+    </style>
+</head>
+
+<body>
+    <button>点击发送GET请求</button>
+    <div id="result"></div>
+
+    <hr>
+
+    <button>点击发送POST请求</button>
+    <div id="postResult"></div>
+
+    <hr>
+    <p>json数据请求，点击键盘发送</p>
+    <div id="json"></div>
+
+    <hr>
+    <p>数据延迟返回</p>
+    <div id="delay"></div>
+
+    <script>
+        const btn = document.getElementsByTagName('button')[0]
+        const result = document.getElementById('result')
+        btn.onclick = function () {
+            const xhr = new XMLHttpRequest()
+            xhr.open('GET', 'http://127.0.0.1:8000/server?a=100&b=200')
+            xhr.send()
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        // console.log(xhr.status)
+                        // console.log(xhr.statusText)
+                        // console.log(xhr.getAllResponseHeaders)
+                        // console.log(xhr.response)
+                        result.innerHTML = xhr.response
+                    }
+                }
+            }
+        }
+
+        const btnPost = document.getElementsByTagName('button')[1]
+        const postResult = document.getElementById('postResult')
+        btnPost.onclick = () => {
+            const xhr = new XMLHttpRequest()
+            xhr.open('POST', 'http://127.0.0.1:8000/server')
+            xhr.setRequestHeader('Content-Type', 'application/x-www/form-urlencoded')
+            xhr.setRequestHeader('Name', 'jimmy')
+            xhr.send('a=100&b=200')
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        postResult.innerHTML = xhr.response
+                    }
+                }
+            }
+        }
+
+        const json = document.getElementById('json')
+        window.onkeydown = () => {
+            const xhr = new XMLHttpRequest()
+            xhr.open('POST', 'http://127.0.0.1:8000/json-server')
+            xhr.setRequestHeader('Content-Type', 'application/x-www/form-urlencoded')
+            xhr.setRequestHeader('Name', 'jimmy')
+            xhr.send('a=100&b=200')
+            // 将返回内容自动转换
+            xhr.responseType = 'json'
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        json.innerHTML = xhr.response.name
+                    }
+                }
+            }
+        }
+
+        const delay = document.getElementById('delay')
+        window.onkeydown = () => {
+            const xhr = new XMLHttpRequest()
+            xhr.open('POST', 'http://127.0.0.1:8000/delay')
+            xhr.setRequestHeader('Content-Type', 'application/x-www/form-urlencoded')
+            xhr.setRequestHeader('Name', 'jimmy')
+            xhr.send('a=100&b=200')
+            // 将返回内容自动转换
+            xhr.responseType = 'json'
+            // 设置请求超时配置
+            xhr.timeout = 2000
+            // 请求超时回调
+            xhr.ontimeout = () => {
+                // alert('网络异常，请稍后再试')
+            }
+
+            xhr.onerror = () => {
+                console.log('你的网络似乎有些问题')
+            }
+
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        json.innerHTML = xhr.response.name
+                    }
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>

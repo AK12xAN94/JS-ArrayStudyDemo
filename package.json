@@ -1,0 +1,23 @@
+{
+  "name": "js-arraystudydemo",
+  "version": "1.0.0",
+  "description": "js数组学习代码",
+  "main": "call_apply_bind.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AK12xAN94/JS-ArrayStudyDemo.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AK12xAN94/JS-ArrayStudyDemo/issues"
+  },
+  "homepage": "https://github.com/AK12xAN94/JS-ArrayStudyDemo#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
