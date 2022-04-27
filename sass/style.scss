@@ -1,0 +1,6 @@
+@use 'base';
+
+body {
+    background-color: base.$my-color;
+    font-size: base.$my-font-size;
+}
